@@ -1,18 +1,14 @@
-const target = document.querySelector("article");
-
-function message(data) {
-  const line = document.createElement('p');
-  line.innerText = data;
-  target.appendChild(line);
-}
+const target = document.querySelector('article');
 
 ws.onopen = function() {
   target.innerHTML = '<p><em>Connected!</em></p>';
 };
 
-ws.onmessage = function(msg) {
-  console.log("message arrived");
-  message(msg.data);
+ws.onmessage = function(message) {
+  console.info("Message arrived");
+  const line = document.createElement('p');
+  line.innerText = message.data;
+  target.parentNode.replaceChild(line, target)
 };
 
 ws.onclose = function() {
