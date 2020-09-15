@@ -5,10 +5,8 @@ ws.onopen = function() {
 };
 
 ws.onmessage = function(message) {
-  console.info("Message arrived");
-  const line = document.createElement('p');
-  line.innerText = message.data;
-  target.parentNode.replaceChild(line, target)
+  console.debug('Message arrived');
+  target.innerHTML = '<p>' + message.data + '</p>';
 };
 
 ws.onclose = function() {
