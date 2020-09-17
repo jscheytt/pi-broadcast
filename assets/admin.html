@@ -10,12 +10,19 @@
     <header>
       <h1>Play a song</h1>
     </header>
-    <audio controls></audio>
-    <ul class="titles">
-      {{#each titles}}
-      <li><a href="#">{{this}}</a></li>
-      {{/each}}
-    </ul>
+    <main>
+      <p>
+        Place the MP3 and LRC files in the corresponding media directory and
+        they will appear in this list. On this system the directory seems to be:
+        {{ current_dir }}
+      </p>
+      <audio controls></audio>
+      <ul class="titles">
+        {{#each titles}}
+        <li><a href="#">{{this}}</a></li>
+        {{/each}}
+      </ul>
+    </main>
   </body>
   <script src="assets/app.js"></script>
   <script src="assets/admin.js"></script>

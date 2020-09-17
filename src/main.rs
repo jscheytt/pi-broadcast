@@ -1,8 +1,6 @@
 // See https://github.com/seanmonstar/warp/blob/master/examples/websockets_chat.rs
 
-use std::fs;
-use std::path::Path;
-use std::sync::Arc;
+use std::{env, fs, path::Path, sync::Arc};
 
 use handlebars::Handlebars;
 use serde::Serialize;
@@ -65,10 +63,16 @@ async fn main() {
     // Create a reusable closure to render template
     let handlebars = move |with_template| render(with_template, hb.clone());
 
+    let current_path = env::current_dir().expect("Could not find directory");
+    let current_path = format!("{}/media", current_path.display());
+
     let admin = warp::path("admin")
         .map(move || WithTemplate {
             name: "admin.html",
-            value: json!({ "titles": audio_names() }),
+            value: json!({
+                "titles": audio_names(),
+                "current_dir": current_path,
+            }),
         })
         .map(handlebars);
 
