@@ -68,7 +68,7 @@ async fn main() {
     let admin = warp::path("admin")
         .map(move || WithTemplate {
             name: "admin.html",
-            value: json!({ "songs": audio_names() }),
+            value: json!({ "titles": audio_names() }),
         })
         .map(handlebars);
 
