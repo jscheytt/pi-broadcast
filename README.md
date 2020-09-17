@@ -21,5 +21,8 @@ Take a look at the sample file in the media directory:
 
 ## To Do
 
-- [ ] Show file list (probably with templating on warp-side)
-- [ ] Show file name in homepage as song title
+- [ ] Deploy to raspberry and verify
+- [ ] Create GitHub repo
+- [ ] Add CI for releases
+- [ ] Add CI for semantic-release
+- [ ] Add packages for commitizen?
