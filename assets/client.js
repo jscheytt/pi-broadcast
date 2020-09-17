@@ -1,14 +1,14 @@
-const target = document.querySelector('article');
+const target = document.querySelector("article p");
 
-ws.onopen = function() {
-  target.innerHTML = '<p><em>Connected!</em></p>';
+ws.onopen = function () {
+  console.debug("Connected to Websocket");
 };
 
-ws.onmessage = function(message) {
-  console.debug('Message arrived');
-  target.innerHTML = '<p>' + message.data + '</p>';
+ws.onclose = function () {
+  console.debug("Disconnected from Websocket");
 };
 
-ws.onclose = function() {
-  target.innerHTML = '<p><em>Disconnected!</em></p>';
+ws.onmessage = function (message) {
+  console.debug("Message arrived");
+  target.innerHTML = message.data;
 };
