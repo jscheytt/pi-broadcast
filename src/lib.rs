@@ -67,7 +67,7 @@ async fn user_message(my_id: usize, msg: Message, users: &Users) {
         return;
     };
 
-    // New message from this user, send it to everyone else (except same uid)...
+    // New message from this user, send it to everyone else (except same uid)
     for (&uid, tx) in users.read().await.iter() {
         if my_id != uid {
             if let Err(_disconnected) = tx.send(Ok(Message::text(msg))) {
