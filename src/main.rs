@@ -46,6 +46,28 @@ async fn main() {
             ws.on_upgrade(move |socket| user_connected(socket, users))
         });
 
+    // -- Admin route
+    // Read template from file
+    let template =
+        fs::read_to_string("assets/admin.html").expect("Something went wrong reading the file");
+
+    // Register the template
+    let mut hb = Handlebars::new();
+    hb.register_template_string("admin.html", template.clone())
+        .unwrap();
+
+    // Turn Handlebars instance into a Filter so we can combine it easily with others
+    let hb = Arc::new(hb);
+    // Create a reusable closure to render template
+    let handlebars = move |with_template| render(with_template, hb.clone());
+
+    let admin = warp::path("admin")
+        .map(move || WithTemplate {
+            name: "admin.html",
+            value: json!({ "songs": audio_names() }),
+        })
+        .map(handlebars);
+
     let routes = home
         .or(assets)
         .or(media)
@@ -121,4 +143,18 @@ async fn user_disconnected(my_id: usize, users: &Users) {
 
     // Stream closed up, so remove from the user list
     users.write().await.remove(&my_id);
+fn audio_names() -> Vec<String> {
+    let paths = fs::read_dir(&Path::new("media")).unwrap();
+    let audio_extension = ".mp3";
+    paths
+        .filter_map(|entry| {
+            entry.ok().and_then(|e| {
+                e.path()
+                    .file_name()
+                    .and_then(|n| n.to_str().map(|s| String::from(s)))
+            })
+        })
+        .filter(|name| name.ends_with(audio_extension))
+        .map(|name| name.replace(audio_extension, ""))
+        .collect::<Vec<String>>()
 }
