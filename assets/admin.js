@@ -1,11 +1,12 @@
 const dom_audio = document.querySelector("audio");
-var lyric;
+var lyric, current_title;
 
 // Update audio element file
 const dom_titles = document.querySelectorAll("ul.titles li a");
 dom_titles.forEach(
   (dom_title) =>
     (dom_title.onclick = function () {
+      current_title = this.text;
       dom_audio.src = `media/${this.text}.mp3`;
       set_lyric();
       dom_audio.play();
@@ -14,16 +15,7 @@ dom_titles.forEach(
 
 // Wait for the websocket handshake to succeed
 ws.onopen = function () {
-  lyric = new Lyric({
-    onPlay: function (line, text) {
-      ws.send(text);
-      console.log(line, text);
-    },
-    onSetLyric: function (lines) {
-      // console.log(lines)
-      // ws.send(lines)
-    },
-  });
+  lyric = new Lyric({ onPlay: dispatch_lyric });
 
   // Add audio handlers
   dom_audio.onplay = function () {
@@ -33,6 +25,19 @@ ws.onopen = function () {
     lyric.pause();
   };
 };
+
+function dispatch_lyric(line, text) {
+  console.debug(line, text);
+  // Based on the thoughtbot convention from https://thoughtbot.com/blog/json-event-based-convention-websockets
+  event_name = "lyric_sent";
+  event_data = {
+    title: current_title,
+    lyric: text,
+    line: line,
+  };
+  data = JSON.stringify({ event: event_name, data: event_data });
+  ws.send(data);
+}
 
 function set_lyric() {
   // LRC file has the same name as the audio file
