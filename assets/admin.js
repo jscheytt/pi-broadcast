@@ -1,14 +1,6 @@
 const dom_audio = document.querySelector("audio");
 var lyric;
 
-// Add audio handlers
-dom_audio.onplay = function () {
-  lyric.play(dom_audio.currentTime * 1000);
-};
-dom_audio.onpause = function () {
-  lyric.pause();
-};
-
 // Update audio element file
 const dom_titles = document.querySelectorAll("ul.titles li a");
 dom_titles.forEach(
@@ -32,6 +24,14 @@ ws.onopen = function () {
       // ws.send(lines)
     },
   });
+
+  // Add audio handlers
+  dom_audio.onplay = function () {
+    lyric.play(dom_audio.currentTime * 1000);
+  };
+  dom_audio.onpause = function () {
+    lyric.pause();
+  };
 };
 
 function set_lyric() {
