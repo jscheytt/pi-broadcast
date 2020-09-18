@@ -64,7 +64,6 @@ async fn main() {
     // Create a reusable closure to render template
     let handlebars = move |with_template| render(with_template, hb.clone());
 
-
     let admin = warp::path("admin")
         .map(move || WithTemplate {
             name: "admin.html",
