@@ -7,7 +7,7 @@ use serde::Serialize;
 use serde_json::json;
 use warp::Filter;
 
-pub mod lib;
+pub mod ws;
 
 // See https://github.com/seanmonstar/warp/blob/master/examples/handlebars_template.rs
 
@@ -29,7 +29,7 @@ where
 #[tokio::main]
 async fn main() {
     // Keep track of all connected users, key is usize, value is a websocket sender
-    let users = lib::Users::default();
+    let users = ws::Users::default();
     // Turn our "state" into a new Filter
     let users = warp::any().map(move || users.clone());
 
@@ -45,7 +45,7 @@ async fn main() {
         .and(warp::ws())
         .and(users)
         .map(|ws: warp::ws::Ws, users| {
-            ws.on_upgrade(move |socket| lib::user_connected(socket, users))
+            ws.on_upgrade(move |socket| ws::user_connected(socket, users))
         });
 
     // -- Admin route
