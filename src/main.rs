@@ -1,13 +1,14 @@
 // See https://github.com/seanmonstar/warp/blob/master/examples/websockets_chat.rs
 
-use std::{env, fs, path::Path, sync::Arc};
+use std::{fs, sync::Arc};
 
 use handlebars::Handlebars;
 use serde::Serialize;
 use serde_json::json;
 use warp::Filter;
 
-pub mod ws;
+mod admin;
+mod ws;
 
 // See https://github.com/seanmonstar/warp/blob/master/examples/handlebars_template.rs
 
@@ -63,15 +64,13 @@ async fn main() {
     // Create a reusable closure to render template
     let handlebars = move |with_template| render(with_template, hb.clone());
 
-    let current_path = env::current_dir().expect("Could not find directory");
-    let current_path = format!("{}/media", current_path.display());
 
     let admin = warp::path("admin")
         .map(move || WithTemplate {
             name: "admin.html",
             value: json!({
-                "titles": audio_names(),
-                "current_dir": current_path,
+                "titles": admin::audio_names(),
+                "current_dir": admin::current_path(),
             }),
         })
         .map(handlebars);
@@ -84,20 +83,4 @@ async fn main() {
         .with(warp::cors().allow_any_origin());
 
     warp::serve(routes).run(([127, 0, 0, 1], 3030)).await;
-}
-
-fn audio_names() -> Vec<String> {
-    let paths = fs::read_dir(&Path::new("media")).unwrap();
-    let audio_extension = ".mp3";
-    paths
-        .filter_map(|entry| {
-            entry.ok().and_then(|e| {
-                e.path()
-                    .file_name()
-                    .and_then(|n| n.to_str().map(|s| String::from(s)))
-            })
-        })
-        .filter(|name| name.ends_with(audio_extension))
-        .map(|name| name.replace(audio_extension, ""))
-        .collect::<Vec<String>>()
 }

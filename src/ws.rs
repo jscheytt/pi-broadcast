@@ -18,7 +18,6 @@ static NEXT_USER_ID: AtomicUsize = AtomicUsize::new(1);
 // - Value is a sender of `warp::ws::Message`
 pub type Users = Arc<RwLock<HashMap<usize, mpsc::UnboundedSender<Result<Message, warp::Error>>>>>;
 
-#[allow(dead_code)]
 pub async fn user_connected(ws: WebSocket, users: Users) {
     // Use a counter to assign a new unique ID for this user
     let my_id = NEXT_USER_ID.fetch_add(1, Ordering::Relaxed);
