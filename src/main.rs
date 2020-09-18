@@ -1,6 +1,6 @@
 // See https://github.com/seanmonstar/warp/blob/master/examples/websockets_chat.rs
 
-use std::{fs, sync::Arc};
+use std::{env, fs, sync::Arc};
 
 use handlebars::Handlebars;
 use serde::Serialize;
@@ -29,6 +29,13 @@ where
 
 #[tokio::main]
 async fn main() {
+    // Get port to run on from CLI arguments
+    let args: Vec<String> = env::args().collect();
+    let port: u16 = match args.get(1) {
+        Some(i) => i.parse().expect("Could not convert string to integer"),
+        None => 80, // default value
+    };
+
     // Keep track of all connected users, key is usize, value is a websocket sender
     let users = ws::Users::default();
     // Turn our "state" into a new Filter
@@ -81,5 +88,5 @@ async fn main() {
         .or(websockets)
         .with(warp::cors().allow_any_origin());
 
-    warp::serve(routes).run(([127, 0, 0, 1], 3030)).await;
+    warp::serve(routes).run(([127, 0, 0, 1], port)).await;
 }
