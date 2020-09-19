@@ -41,7 +41,11 @@ function dispatch_lyric(line, text) {
 
 function set_lyric() {
   // LRC file has the same name as the audio file
-  var lyric_url = dom_audio.src.replace(/\..+?$/, ".lrc");
+  var lyric_url = dom_audio.src
+    .split(".")
+    .slice(0, -1)
+    .join(".")
+    .concat(".lrc");
   fetch(lyric_url).then((response) =>
     response.text().then(function (text) {
       lyric.setLyric(text);
