@@ -36,6 +36,7 @@ function dispatch_lyric(line, text) {
     line: line,
   };
   data = JSON.stringify({ event: event_name, data: event_data });
+  console.debug("Sending message " + data);
   ws.send(data);
 }
 
