@@ -9,13 +9,17 @@ dom_titles.forEach(
       current_title = this.text;
       dom_audio.src = `media/${this.text}.mp3`;
       set_lyric();
-      dom_audio.play();
     })
 );
 
 // Wait for the websocket handshake to succeed
 ws.onopen = function () {
-  lyric = new Lyric({ onPlay: dispatch_lyric });
+  lyric = new Lyric({
+    onPlay: dispatch_lyric,
+    onSetLyric: function () {
+      dom_audio.play();
+    },
+  });
 
   // Add audio handlers
   dom_audio.onplay = function () {
