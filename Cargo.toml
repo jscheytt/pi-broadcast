@@ -1,5 +1,5 @@
 [package]
-name = "pi-streaming"
+name = "pi-broadcast"
 version = "0.1.0"
 authors = ["Josia Scheytt <jscheytt@googlemail.com>"]
 edition = "2018"

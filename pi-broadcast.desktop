@@ -2,10 +2,10 @@
 [Desktop Entry]
 Categories=Application
 Encoding=UTF-8
-Exec=lxterminal --command "sudo ./pi-streaming"
+Exec=lxterminal --command "sudo ./pi-broadcast"
 MimeType=application/x-sh
-Name=pi-streaming
-Path=~/Downloads/pi-streaming
+Name=pi-broadcast
+Path=~/Downloads/pi-broadcast
 Terminal=false
 Type=Application
 Version=1.0

@@ -667,7 +667,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "pi-streaming"
+name = "pi-broadcast"
 version = "0.1.0"
 dependencies = [
  "futures",
