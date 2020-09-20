@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Categories=Application
+Encoding=UTF-8
+Exec=lxterminal --command "sudo ./pi-streaming"
+MimeType=application/x-sh
+Name=pi-streaming
+Path=~/Downloads/pi-streaming
+Terminal=false
+Type=Application
+Version=1.0
