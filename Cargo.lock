@@ -463,18 +463,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "lyrics-streaming"
-version = "0.1.0"
-dependencies = [
- "futures",
- "handlebars",
- "serde",
- "serde_json",
- "tokio",
- "warp",
-]
-
-[[package]]
 name = "maplit"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -676,6 +664,18 @@ dependencies = [
  "maplit",
  "pest",
  "sha-1 0.8.2",
+]
+
+[[package]]
+name = "pi-streaming"
+version = "0.1.0"
+dependencies = [
+ "futures",
+ "handlebars",
+ "serde",
+ "serde_json",
+ "tokio",
+ "warp",
 ]
 
 [[package]]
