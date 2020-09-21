@@ -1,0 +1,19 @@
+{
+  "name": "pi-broadcast",
+  "private": true,
+  "version": "0.1.0",
+  "dependencies": {},
+  "devDependencies": {
+    "semantic-release": "^17.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jscheytt/pi-broadcast.git"
+  },
+  "author": "Josia Scheytt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jscheytt/pi-broadcast/issues"
+  },
+  "homepage": "https://github.com/jscheytt/pi-broadcast#readme"
+}

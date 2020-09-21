@@ -3,3 +3,6 @@
 
 # OSX files
 .DS_Store
+
+# npm modules
+node_modules/
