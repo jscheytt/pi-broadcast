@@ -1,0 +1,20 @@
+on:
+  release:
+    types: [created]
+
+jobs:
+  release:
+    name: Release ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+          [armv7-unknown-linux-gnueabihf]
+    steps:
+      - uses: actions/checkout@master
+      - name: Compile and release
+        uses: Douile/rust-build.action@v0.1.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUSTTARGET: ${{ matrix.target }}
+          EXTRA_FILES: "assets media"
