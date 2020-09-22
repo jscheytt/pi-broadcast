@@ -2,10 +2,6 @@
   "name": "pi-broadcast",
   "private": true,
   "version": "0.1.0",
-  "dependencies": {},
-  "devDependencies": {
-    "semantic-release": "^17.1.2"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jscheytt/pi-broadcast.git"
@@ -15,5 +11,18 @@
   "bugs": {
     "url": "https://github.com/jscheytt/pi-broadcast/issues"
   },
-  "homepage": "https://github.com/jscheytt/pi-broadcast#readme"
+  "homepage": "https://github.com/jscheytt/pi-broadcast#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "commitizen": "^4.2.1",
+    "semantic-release": "^17.1.2",
+    "husky": "^4.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
 }
