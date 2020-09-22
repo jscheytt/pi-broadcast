@@ -1,16 +1,15 @@
 # pi-broadcast
 
 This is a little web server that facilitates home church services for small groups.
-It enables you to stream song lyrics live to everybody's mobile device when you have nobody at hand who can lead worship with an instrument.
-
-[TOC]
+It enables you to play a song and stream the song lyrics live to everybody's mobile device
+This can be especially helpful when you have nobody available who can lead worship with an instrument.
 
 ## Setup
 
 ### Prerequisites
 
 * Raspberry Pi (>= 2)
-* Newest release package (see "Releases" in the sidebar)
+* Newest release (latest item in [Releases](https://github.com/jscheytt/pi-broadcast/releases))
 * MP3s with corresponding LRC files
 
 ### Creating media
@@ -31,7 +30,7 @@ If you have an MP3 file and want to create lyrics, have a look at the sample fil
 The release package contains a binary application (the server) and some static assets (the webpages and some scripts).
 This means you don't have to install any additional software: Just download, unzip, run it!
 
-1. Get the release package unto your Raspberry. Some alternatives for doing this:
+1. Get the release unto your Raspberry. Some options for doing this:
     * Download it directly on the Raspberry.
     * Download it on another machine, put it on a USB drive and plug it in. This can make media management easier (e. g. if you want to add new media often, it might be more convenient to do it on a different machine than the Pi).
 1. Unzip it.
@@ -57,14 +56,19 @@ This means you don't have to install any additional software: Just download, unz
 1. On the first device (in this case: tablet): Play one of the songs by clicking on them.
 1. On the second device (in this case: smartphone): Watch the lyrics display.
 
-## Configuration
-
-
-
 ## Development
 
+See [Contributing Guidelines](CONTRIBUTING.md)
 
+## CI/CD
 
-## Deployment
+GitHub Actions performs the following when you merge changes to master:
 
+1. Perform a semantic-release step. This determines the next version number from the commit messages.
+1. If there is a new version number (= a new release):
+    1. Update changelog.
+    1. Create new release.
+    1. Compile binary for target platform.
+    1. Create zip and attach it to release.
 
+This means you will never have to create a release manually.
