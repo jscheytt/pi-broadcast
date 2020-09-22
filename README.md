@@ -1,5 +1,8 @@
 # pi-broadcast
 
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
 This is a little web server that facilitates home church services for small groups.
 It enables you to play a song and stream the song lyrics live to everybody's mobile device
 This can be especially helpful when you have nobody available who can lead worship with an instrument.
