@@ -1,24 +1,41 @@
+name: release
 on:
-  release:
-    types: [created]
-
+  push:
+    branches:
+      - master
 jobs:
   release:
-    name: Create release for Pi
+    name: Compile & release
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        target: [armv7-unknown-linux-gnueabihf]
+    # Omit commits with `[skip ci]` in latest commit (like Bitbucket Pipelines)
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
       - name: Check out
         uses: actions/checkout@master
-      - name: Install target compiler
-        run: sudo apt-get install -y --no-install-recommends gcc-multilib-arm-linux-gnueabihf
-      - name: Install target rust toolchain
-        run: rustup target add armv7-unknown-linux-gnueabihf
-      - name: Compile and release
-        uses: Douile/rust-build.action@v0.1.1
+        with:
+          persist-credentials: false
+      - name: Compile
+        uses: ebbflow-io/cargo-deb-armv7-debian@1.0
+        with:
+          cmd: cargo build --target=armv7-unknown-linux-musleabihf --release
+      - run: cp target/armv7-unknown-linux-musleabihf/release/pi-broadcast .
+      - run: sudo apt-get install -y zip
+      - name: Create package
+        run: zip -r release.zip pi-broadcast assets/ media/
+      - name: Perform Semantic Release
+        uses: cycjimmy/semantic-release-action@v2
+        id: semantic # Need an `id` for output variables
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RUSTTARGET: ${{ matrix.target }}
-          EXTRA_FILES: "assets media"
+          # Personal access token from repo owner with permission public_repo
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+        with:
+          semantic_version: 17.1.2
+          extra_plugins: |
+            @semantic-release/changelog@5.0.1
+            @semantic-release/exec@5.0.0
+            @semantic-release/git@9.0.0
+            conventional-changelog-conventionalcommits@4.4.0
+    outputs:
+      published: ${{ steps.semantic.outputs.new_release_published }}
+      version: ${{ steps.semantic.outputs.new_release_version }}
+      notes: ${{ steps.semantic.outputs.new_release_notes }}

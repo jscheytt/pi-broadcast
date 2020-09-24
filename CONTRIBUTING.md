@@ -1,5 +1,13 @@
 # Contributing Guidelines
 
+## How to write commit messages
+
+This repository is based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+
+**Before you start committing to this repository, please read the above link and learn writing Conventional Commits.**
+
+We have included [commitizen](https://commitizen.github.io/cz-cli/#using-the-command-line-tool) and [commitlint](https://commitlint.js.org/#/) in the package.json so that you can have helpful tools that automatically guide you towards writing Conventional Commits.
+
 ## Prerequisites
 
 * [Rust](https://www.rust-lang.org/tools/install)
