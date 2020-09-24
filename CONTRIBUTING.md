@@ -8,6 +8,18 @@ This repository is based on [Conventional Commits](https://www.conventionalcommi
 
 We have included [commitizen](https://commitizen.github.io/cz-cli/#using-the-command-line-tool) and [commitlint](https://commitlint.js.org/#/) in the package.json so that you can have helpful tools that automatically guide you towards writing Conventional Commits.
 
+## Good first issues
+
+* Add a view for broadcasting arbitrary text e. g. if someone wants to share a text passage
+    * You could move the "admin" view to a "play" view
+    * and create a new "publish" view with a textbox and a send button
+    * and some JS functionality to publish a JSON websocket message
+* Add a view for broadcasting an image
+    * You could reuse the "publish" view and add an upload button
+    * You could publish the image via JSON as base64-encoded string
+    * and decode it accordingly in the "home" view
+* Translate all views
+
 ## Prerequisites
 
 * [Rust](https://www.rust-lang.org/tools/install)

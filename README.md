@@ -61,11 +61,6 @@ This means you don't have to install any additional software: Just download, unz
 1. On the first device (in this case: tablet): Play one of the songs by clicking on them.
 1. On the second device (in this case: smartphone): Watch the lyrics display.
 
-## To Do
-
-* Add CI/CD
-* Add view for broadcasting arbitrary text or image
-
 ## Development
 
 See [Contributing Guidelines](CONTRIBUTING.md)
